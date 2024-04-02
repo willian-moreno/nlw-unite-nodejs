@@ -4,5 +4,23 @@ Content-Type: application/json
 {
     "title": "NLW Unite",
     "details": "Um evento topzera das galáxias!!",
-    "maximumAttendees": 100
+    "maximumAttendees": 1
 }
+
+###
+
+POST http://localhost:3333/events/cb37e4fe-cd8d-4701-b96a-4f7b6a84272a/attendees
+Content-Type: application/json
+
+{
+    "name": "Willian Moreno",
+    "email": "willian_moreno3@outlook.com"
+}
+
+###
+
+GET http://localhost:3333/events/cb37e4fe-cd8d-4701-b96a-4f7b6a84272a
+
+###
+
+GET http://localhost:3333/attendees/1/badge
