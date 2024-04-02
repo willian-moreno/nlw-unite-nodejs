@@ -26,6 +26,10 @@ O sistema fará um scan da credencial do participante para permitir a entrada no
 <h3>📌 Tecnologias</h3> 
 
 - Node.js
+- Typescript
+- Fastify
+- Prisma
+- Zod
 
 <h3>📌 Materiais</h3> 
 
