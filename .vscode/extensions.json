@@ -1,0 +1,8 @@
+{
+	"recommendations": [
+		"ms-vscode.vscode-typescript-next",
+		"Prisma.prisma",
+		"mikestead.dotenv",
+		"humao.rest-client",
+	],
+}
