@@ -14,7 +14,7 @@
     <a href="#-regras-de-negócio">Regras de negócio</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
     <a href="#-requisitos-não-funcionais">Requisitos não-funcionais</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
     <a href="#-diagrama-erd">Diagrama ERD</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-    <a href="#-estrutura-do-banco-(sql)">Estrutura do banco (SQL)</a>
+    <a href="#-estrutura-do-banco-sql">Estrutura do banco (SQL)</a>
 </p>
 
 <h3>📌 Sobre</h3> 
