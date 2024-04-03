@@ -1,10 +1,13 @@
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+import { Conflict } from '../_errors/conflict';
 import { prisma } from '../lib/prisma';
 import { generateSlug } from '../utils/generate-slug';
 
 const routeSchema = {
+  summary: 'Create an event',
+  tags: ['events'],
   body: z.object({
     title: z.string().min(4),
     details: z.string().nullable(),
@@ -32,13 +35,7 @@ export async function createEvent(app: FastifyInstance) {
       const eventWithSameSlug = await prisma.event.findUnique({ select: { id: true }, where: { slug } })
 
       if (eventWithSameSlug !== null) {
-        return reply
-          .status(409)
-          .send({
-            statusCode: 409,
-            statusText: 'Conflict',
-            message: 'Another event with same title already exists.',
-          })
+        throw new Conflict('Another event with same title already exists.')
       }
 
       const event = await prisma.event.create({

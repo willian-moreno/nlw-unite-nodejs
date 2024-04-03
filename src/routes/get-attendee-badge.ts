@@ -1,18 +1,22 @@
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+import { NotFound } from '../_errors/not-found';
 import { prisma } from '../lib/prisma';
 
 const routeSchema = {
+  summary: 'Get an attendee badge',
+  tags: ['attendees'],
   params: z.object({
     attendeeId: z.coerce.number().int(),
   }),
   response: {
     200: z.object({
-      attendee: z.object({
+      badge: z.object({
         name: z.string(),
         email: z.string().email(),
         eventTitle: z.string(),
+        checkInURL: z.string().url()
       }),
     }),
     404: z.object({
@@ -45,22 +49,21 @@ export async function getAttendeBadge(app: FastifyInstance) {
       })
 
       if (attendee === null) {
-        return reply
-          .status(404)
-          .send({
-            statusCode: 404,
-            statusText: 'Not found',
-            message: 'Attendee not found.'
-          })
+        throw new NotFound('Attendee not found.')
       }
+
+      const { protocol, hostname } = request
+      const baseURL = `${protocol}://${hostname}`
+      const checkInURL = new URL(`/attendees/${attendeeId}/check-in`, baseURL)
 
       return reply
         .status(200)
         .send({
-          attendee: {
+          badge: {
             name: attendee.name,
             email: attendee.email,
             eventTitle: attendee.event.title,
+            checkInURL: checkInURL.toString(),
           }
         })
     })

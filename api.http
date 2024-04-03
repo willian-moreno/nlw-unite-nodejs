@@ -2,25 +2,33 @@ POST http://localhost:3333/events
 Content-Type: application/json
 
 {
-    "title": "NLW Unite",
-    "details": "Um evento topzera das galáxias!!",
-    "maximumAttendees": 1
+    "title": "NLW Unite Rocketseat",
+    "details": "Um evento topzera das galáxias, para os amantes de tecnologia! 🚀✨",
+    "maximumAttendees": 100
 }
 
 ###
 
-POST http://localhost:3333/events/cb37e4fe-cd8d-4701-b96a-4f7b6a84272a/attendees
+POST http://localhost:3333/events/59f22216-38df-463d-9dee-08cb16089b63/attendees
 Content-Type: application/json
 
 {
-    "name": "Willian Moreno",
-    "email": "willian_moreno3@outlook.com"
+    "name": "Teste",
+    "email": "teste@example.com"
 }
 
 ###
 
-GET http://localhost:3333/events/cb37e4fe-cd8d-4701-b96a-4f7b6a84272a
+GET http://localhost:3333/events/59f22216-38df-463d-9dee-08cb16089b63
 
 ###
 
-GET http://localhost:3333/attendees/1/badge
+GET http://localhost:3333/attendees/7/badge
+
+###
+
+GET http://localhost:3333/attendees/1/check-in
+
+###
+
+GET http://localhost:3333/events/59f22216-38df-463d-9dee-08cb16089b63/attendees?pageIndex=0&query=Teste

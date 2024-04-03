@@ -1,9 +1,12 @@
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+import { NotFound } from '../_errors/not-found';
 import { prisma } from '../lib/prisma';
 
 const routeSchema = {
+  summary: 'Get an event',
+  tags: ['events'],
   params: z.object({
     eventId: z.string().uuid(),
   }),
@@ -52,13 +55,7 @@ export async function getEvent(app: FastifyInstance) {
       })
 
       if (event === null) {
-        return reply
-          .status(404)
-          .send({
-            statusCode: 404,
-            statusText: 'Not found',
-            message: 'Event not found.'
-          })
+        throw new NotFound('Event not found.')
       }
 
       return reply

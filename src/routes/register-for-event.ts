@@ -1,9 +1,13 @@
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+import { Conflict } from '../_errors/conflict';
+import { NotFound } from '../_errors/not-found';
 import { prisma } from '../lib/prisma';
 
 const routeSchema = {
+  summary: 'Register an attendee',
+  tags: ['attendees'],
   body: z.object({
     name: z.string().min(4),
     email: z.string().email(),
@@ -45,13 +49,7 @@ export async function registerForEvent(app: FastifyInstance) {
       })
 
       if (event === null) {
-        return reply
-          .status(404)
-          .send({
-            statusCode: 404,
-            statusText: 'Not found',
-            message: 'Event not found.'
-          })
+        throw new NotFound('Event not found.')
       }
 
       const [
@@ -78,23 +76,11 @@ export async function registerForEvent(app: FastifyInstance) {
       ])
 
       if (attendeeFromEmail !== null) {
-        return reply
-          .status(409)
-          .send({
-            statusCode: 409,
-            statusText: 'Conflict',
-            message: 'This e-mail is already registered for this event.'
-          })
+        throw new Conflict('This e-mail is already registered for this event.')
       }
 
       if (event.maximumAttendees && amountOfAttendeesForEvent >= event.maximumAttendees) {
-        return reply
-          .status(409)
-          .send({
-            statusCode: 409,
-            statusText: 'Conflict',
-            message: 'The maximum number of attendees for this event has been reached.'
-          })
+        throw new Conflict('The maximum number of attendees for this event has been reached.')
       }
 
       const attendee = await prisma.attendee.create({

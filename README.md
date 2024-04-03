@@ -30,6 +30,8 @@ O sistema fará um scan da credencial do participante para permitir a entrada no
 - Fastify
 - Prisma
 - Zod
+- Swagger
+- Cors
 
 <h3>📌 Materiais</h3> 
 
